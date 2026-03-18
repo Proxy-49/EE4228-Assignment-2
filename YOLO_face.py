@@ -22,7 +22,7 @@ BOX_COLOR = (0, 255, 0)  # BGR green
 UNKNOWN_BOX_COLOR = (0, 0, 255)  # BGR red for unknown faces
 BOX_THICKNESS = 2
 LABEL_FONT_SCALE = 0.6
-CAMERA_INDEX = 1
+CAMERA_INDEX = 0
 
 
 # model loading
@@ -99,7 +99,9 @@ def main():
     facenet = load_facenet()
     enrolled = load_embeddings()
 
-    cap = cv2.VideoCapture(CAMERA_INDEX)
+    cap = cv2.VideoCapture(CAMERA_INDEX, cv2.CAP_DSHOW)
+    cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+    cap.set(cv2.CAP_PROP_FPS, 30)
     if not cap.isOpened():
         print("[ERROR] Cannot open camera.")
         return
