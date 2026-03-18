@@ -100,7 +100,10 @@ def main():
     facenet = load_facenet()
     enrolled = load_embeddings()
 
-    cap = cv2.VideoCapture(CAMERA_INDEX)
+    cap = cv2.VideoCapture(CAMERA_INDEX, cv2.CAP_DSHOW)
+    cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+    cap.set(cv2.CAP_PROP_FPS, 30)
+
     if not cap.isOpened():
         print("[ERROR] Cannot open camera.")
         return
